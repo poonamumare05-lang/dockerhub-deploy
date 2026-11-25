@@ -4,11 +4,13 @@ pipeline {
 
     stages {
 
-        stage('Git Checkout') {
-            steps {
-                git 'https://github.com/poonamumare/dockerapp.git'
-            }
-        }
+stage('Git Checkout') {
+    steps {
+        git branch: 'main',
+            url: 'https://github.com/poonamumare/dockerapp.git'
+    }
+}
+
 
         stage('Build') {
             steps {
