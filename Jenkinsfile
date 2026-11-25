@@ -19,20 +19,35 @@ pipeline {
         stage('Check Java and Maven') {
             steps {
                 sh '''
-                    echo "Checking Java version"
-                    echo $JAVA_HOME
+                    echo "===== JAVA HOME ====="
+                    echo "$JAVA_HOME"
+
+                    echo "===== JAVA VERSION ====="
                     java -version
+
+                    echo "===== JAVAC VERSION ====="
                     javac -version
 
-                    echo "Checking Maven version"
+                    echo "===== MAVEN VERSION ====="
                     mvn -version
+
+                    echo "===== COMPILER LOCATION ====="
+                    which javac
                 '''
             }
         }
 
         stage('Build using Maven') {
             steps {
-                sh 'mvn clean package'
+                sh '''
+                    export JAVA_HOME="$JAVA_HOME"
+                    export PATH="$JAVA_HOME/bin:$PATH"
+
+                    echo "Using compiler:"
+                    "$JAVA_HOME/bin/javac" -version
+
+                    mvn clean package -DskipTests
+                '''
             }
         }
 
@@ -53,3 +68,5 @@ pipeline {
         }
     }
 }
+
+    
