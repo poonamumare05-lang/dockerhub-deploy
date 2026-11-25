@@ -1,9 +1,15 @@
 
-
 pipeline {
     agent any
 
     stages {
+
+        stage('Git Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/poonamumare05-lang/dockerhub-deploy.git'
+            }
+        }
 
         stage('Build') {
             steps {
@@ -53,4 +59,5 @@ pipeline {
         }
     }
 }
+
 
