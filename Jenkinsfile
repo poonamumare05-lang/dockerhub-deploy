@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/poonamumare05-lang/maven-docker-project.git'
+                    url: 'https://github.com/poonamumare05-lang/dockerhub-deploy.git'
             }
         }
 
