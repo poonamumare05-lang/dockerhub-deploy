@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -15,12 +16,23 @@ pipeline {
             }
         }
 
+        stage('Check Java and Maven') {
+            steps {
+                sh '''
+                    echo "Checking Java version"
+                    echo $JAVA_HOME
+                    java -version
+                    javac -version
+
+                    echo "Checking Maven version"
+                    mvn -version
+                '''
+            }
+        }
+
         stage('Build using Maven') {
             steps {
-                sh 'java -version'
-                sh 'mvn -version'
                 sh 'mvn clean package'
-            
             }
         }
 
