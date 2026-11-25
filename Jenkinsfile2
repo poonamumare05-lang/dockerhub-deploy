@@ -1,138 +1,16 @@
 
+
 pipeline {
     agent any
 
     stages {
 
-stage('Git Checkout') {
-    steps {
-        git branch: 'main',
-            url: '
-pipeline {
-    agent any
-
-    stages {
-
-stage('Git Checkout') {
-    steps {
-        git branch: 'main',
-            url: '
-pipeline {
-    agent any
-
-    stages {
-
-stage('Git Checkout') {
-    steps {
-        git branch: 'main',
-            url: 'https://github.com/poonamumare/dockerapp.git'
-    }
-}
-
-
-        stage('Build') {
+        stage('Git Checkout') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                git branch: 'main',
+                    url: 'https://github.com/poonamumare/dockerapp.git'
             }
         }
-
-        stage('Docker Build') {
-            steps {
-                sh 'docker build -t poonamumare/dockerapp .'
-            }
-        }
-
-        stage('Docker Login') {
-            steps {
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'dockerhub-credentials',
-                        usernameVariable: 'USER',
-                        passwordVariable: 'PASS'
-                    )
-                ]) {
-                    sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
-                }
-            }
-        }
-
-        stage('Push Image') {
-            steps {
-                sh 'docker push poonamumare/dockerapp'
-            }
-        }
-
-        stage('Pull Image') {
-            steps {
-                sh 'docker pull poonamumare/dockerapp'
-            }
-        }
-
-        stage('Run Container') {
-            steps {
-                sh '''
-                    docker rm -f dockerapp || true
-                    docker run -d --name dockerapp -p 9090:8080 poonamumare/dockerapp
-                '''
-            }
-        }
-    }
-}'
-    }
-}
-
-
-        stage('Build') {
-            steps {
-                sh 'mvn clean package -DskipTests'
-            }
-        }
-
-        stage('Docker Build') {
-            steps {
-                sh 'docker build -t poonamumare/dockerapp .'
-            }
-        }
-
-        stage('Docker Login') {
-            steps {
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'dockerhub-credentials',
-                        usernameVariable: 'USER',
-                        passwordVariable: 'PASS'
-                    )
-                ]) {
-                    sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
-                }
-            }
-        }
-
-        stage('Push Image') {
-            steps {
-                sh 'docker push poonamumare/dockerapp'
-            }
-        }
-
-        stage('Pull Image') {
-            steps {
-                sh 'docker pull poonamumare/dockerapp'
-            }
-        }
-
-        stage('Run Container') {
-            steps {
-                sh '''
-                    docker rm -f dockerapp || true
-                    docker run -d --name dockerapp -p 9090:8080 poonamumare/dockerapp
-                '''
-            }
-        }
-    }
-}'
-    }
-}
-
 
         stage('Build') {
             steps {
